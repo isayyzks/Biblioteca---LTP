@@ -1,4 +1,4 @@
-const Livro = require('./Livro');
+const Livro = require('./livro');
 const prompt = require('prompt-sync')();
 
 const livros = [];
@@ -59,6 +59,72 @@ while (opcao !== 0) {
       break;
     }
 
+    case 3: {
+
+      if (livros.length === 0) {
+        console.log('Nenhum livro cadastrado.');
+        break;
+      }
+
+      livros.forEach((livro, index) => {
+        console.log(`[${index}] ${livro.getInfo()}`);
+      });
+
+      const entradaIndice = prompt('Digite o índice do livro a alterar: ');
+      const indice = parseInt(entradaIndice);
+
+      if (isNaN(indice) || indice < 0 || indice >= livros.length) {
+        console.log('Índice inválido!');
+        break;
+      }
+
+      console.log(
+        'Digite os novos valores (pressione Enter para manter o valor atual):'
+      );
+
+      const novoTitulo = prompt(
+        `Título [${livros[indice].titulo}]: `
+      ).trim();
+
+      const novoAutor = prompt(
+        `Autor [${livros[indice].autor}]: `
+      ).trim();
+
+      const novoGenero = prompt(
+        `Gênero [${livros[indice].genero}]: `
+      ).trim();
+
+      const novoAnoPubStr = prompt(
+        `Ano de publicação [${livros[indice].anoPub}]: `
+      ).trim();
+
+      const novoNumPaginasStr = prompt(
+        `Número de páginas [${livros[indice].numPaginas}]: `
+      ).trim();
+
+      if (novoTitulo !== '') livros[indice].titulo = novoTitulo;
+      if (novoAutor !== '') livros[indice].autor = novoAutor;
+      if (novoGenero !== '') livros[indice].genero = novoGenero;
+
+      if (novoAnoPubStr !== '') {
+        const novoAnoPub = parseInt(novoAnoPubStr);
+
+        if (!isNaN(novoAnoPub)) {
+          livros[indice].anoPub = novoAnoPub;
+        }
+      }
+
+      if (novoNumPaginasStr !== '') {
+        const novoNumPaginas = parseInt(novoNumPaginasStr);
+
+        if (!isNaN(novoNumPaginas)) {
+          livros[indice].numPaginas = novoNumPaginas;
+        }
+      }
+
+      console.log('Livro alterado com sucesso!');
+      break;
+    }
+
   }
 }
-
