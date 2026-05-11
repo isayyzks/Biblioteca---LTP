@@ -6,6 +6,7 @@ const livros = [];
 let opcao = -1;
 
 while (opcao !== 0) {
+
   console.log('\n--- BIBLIOTECA ---');
   console.log('1 - Cadastrar livro');
   console.log('2 - Listar livros');
@@ -24,7 +25,7 @@ while (opcao !== 0) {
   switch (opcao) {
 
     case 1: {
-     
+
       const titulo = prompt('Título: ').trim();
       const autor = prompt('Autor: ').trim();
       const genero = prompt('Gênero: ').trim();
@@ -42,6 +43,19 @@ while (opcao !== 0) {
       livros.push(novoLivro);
 
       console.log('Livro cadastrado!');
+      break;
+    }
+
+    case 2: {
+
+      if (livros.length === 0) {
+        console.log('Nenhum livro cadastrado.');
+      } else {
+        livros.forEach((livro, index) => {
+          console.log(`[${index}] ${livro.getInfo()}`);
+        });
+      }
+
       break;
     }
 
